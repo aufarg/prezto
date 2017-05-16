@@ -37,12 +37,16 @@ fi
 # Paths
 #
 
+export GOPATH="$HOME/Programming/go"
+
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
 
 # Set the the list of directories that cd searches.
 cdpath=(
   $HOME
+  $HOME/Programming
+  $HOME/Build
   $cdpath
 )
 
@@ -55,15 +59,26 @@ fpath=(
 # Set the list of directories that Zsh searches for programs.
 path=(
 # local path
+  $HOME/.local/bin                               # User local script
+  $HOME/.local/opt
+  $HOME/.gem/ruby/2.3.0/bin
   /usr/local/{bin,sbin}                          # System local script
 
 # system path
+  $GOPATH/bin                                    # Go
+  /opt						 # opt
+  /usr/lib/jvm/default/include                   # JVM include files
   $path
 )
 
 #
 # Named Directories
 #
+
+hash -d programming="$HOME/Programming"
+hash -d build="$HOME/Build"
+hash -d zsh="${ZDOTDIR:-$HOME}"
+hash -d zprezto="${ZDOTDIR:-$HOME}/.zprezto"
 
 #
 # Less

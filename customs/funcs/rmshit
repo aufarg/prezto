@@ -1,0 +1,84 @@
+#!/bin/zsh
+#
+# Remove unnecessary shit(files) from home directory
+#
+
+## Config
+
+# Screenshot Directory
+ss_dir="~/Pictures/Screenshots"
+
+# Shitty files in HOME directory
+typeset -U shits
+shits=(
+    .xsel.log
+    .wget-hsts
+    .octave_hist
+    .mysql_history
+    .dbshell
+    .mongorc.js
+    .node_repl_history
+)
+
+##
+
+confirm() {
+    local prompt=$1
+    if [[ -n $TTY ]]; then
+        read -r "$prompt"
+        echo $REPLY
+    else
+        echo "Y"
+    fi
+}
+
+echo "Shit File(s):"
+for shit in $shits; do
+    if [[ -f "$HOME/$shit" ]]; then
+        echo "$HOME/$shit"
+    fi
+done
+reply=$(confirm "?Remove shit file(s)? [y/N]")
+
+if [[ $reply =~ ^[Yy]$ ]]; then
+    echo "Removing shit file(s)"
+    rm -f "$HOME"/${^shits}
+fi
+
+echo "Uninstalled Pacman Packages(s)"
+paccache -vvv --uninstalled --dryrun
+reply=$(confirm "?Clean uninstalled pacman package? [y/N]")
+if [[ $reply =~ [Yy]$ ]]; then
+    echo "Cleaning pacman package"
+    paccache --quiet --uninstalled --remove
+fi
+
+echo "Trim Pacman Package(s)"
+paccache -vvv --keep 2 --dryrun
+reply=$(confirm "?Trim pacman package? [y/N]")
+if [[ $reply =~ [Yy]$ ]]; then
+    echo "Trimming pacman package"
+    paccache --quiet --keep 2 --remove
+fi
+
+echo "Old Screenshot(s)"
+old=()
+for file in $~ss_dir/*; do
+    ref=$(date --date='last week' +%s)
+    fdate=$(date --date="$(stat --format '%z' $file)" +%s)
+    if (( $fdate < $ref )); then
+        old+=$file
+    fi
+done
+echo $old
+for file in $old; do
+    if [[ -f "$HOME/$file" ]]; then
+        echo "$HOME/$file"
+    fi
+done
+reply=$(confirm "?Remove old screenshot(s)? [y/N]")
+
+if [[ $reply =~ [Yy]$ ]]; then
+    echo "Cleaning old screenshot(s)"
+    rm -f ${^old}
+fi
