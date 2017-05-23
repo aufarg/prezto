@@ -1,0 +1,6 @@
+#!/bin/zsh
+#
+# Test microphone
+#
+
+arecord -vv -f dat | aplay

@@ -5,9 +5,36 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+rcdir="${ZDOTDIR:-$HOME}"
 # Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+if [[ -s "$rcdir/init.zsh" ]]; then
+  source "$rcdir/init.zsh"
 fi
 
 # Customize to your needs...
+
+# module options override
+setopt clobber
+export KEYTIMEOUT=1
+
+# load custom functions
+typeset -agU zshexit_functions
+{
+    customfuncs="${fpath[(r)*customs/funcs]}"
+    newer() { [[ ! -s "$customfuncs.zwc" || "$REPLY" -nt "$customfuncs.zwc" ]] }
+    if [[ -s "$customfuncs" && -n "$customfuncs"/*(#qN.+newer) ]]; then
+        zcompile "$customfuncs" "$customfuncs"/*
+    fi
+} &!
+
+customfuncs=("${fpath[(r)*customs/funcs]}"/*(.:t))
+autoload -Uz $customfuncs
+unset customfuncs
+
+# source user configurations
+for file ("$rcdir/customs"/*.zsh(.))
+    if [[ -a "$file" ]]; then
+        source "$file"
+    fi
+unset file
+unset sources

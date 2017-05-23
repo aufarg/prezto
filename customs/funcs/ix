@@ -1,0 +1,17 @@
+#!/bin/zsh
+#
+# Upload current xsel clipboard to ix.io and copy the url back to clipboard
+#
+
+URL="ix.io"
+if (( $# == 0 )); then
+    curl -sn -F "f:1=<-" "$URL" | xsel -ib
+else
+    curl -sn -F "f:1=@$1" "$URL" | xsel -ib
+fi
+
+if (( $? == 0 )); then
+    echo "Clipboard uploaded to $(xsel -ob < /dev/null)"
+else
+    echo "Failed"
+fi

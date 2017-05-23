@@ -1,0 +1,33 @@
+#
+# Authenticate ssh
+#
+
+emulate -L zsh
+
+auth() {
+    if [[ -z "$SSH_AGENT_PID" ]]; then
+        eval $(ssh-agent) > /dev/null
+    fi
+    if (( $# == 0 )); then
+        ssh-add -l | sed -e 's/.*\/\([[:alnum:]]\+\).*/\1/'
+    else
+        for key in "$@"; do
+            local keydir="$HOME/.ssh"
+            if [[ -f "$keydir/$key" ]]; then
+                ssh-add "$keydir/$key"
+            fi
+        done
+    fi
+}
+
+# Trap
+auth_exit() {
+    if [[ ! -z "$SSH_AGENT_PID" ]]; then
+        kill "$SSH_AGENT_PID"
+    fi
+}
+
+zshexit_functions+=auth_exit
+
+# Execute on autoload
+auth "$@"
