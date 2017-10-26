@@ -70,10 +70,9 @@ for file in $~ss_dir/*; do
         old+=$file
     fi
 done
-echo $old
 for file in $old; do
-    if [[ -f "$HOME/$file" ]]; then
-        echo "$HOME/$file"
+    if [[ -f "$file" ]]; then
+        echo "$file"
     fi
 done
 reply=$(confirm "?Remove old screenshot(s)? [y/N]")
