@@ -37,7 +37,7 @@ fi
 # Paths
 #
 
-export GOPATH="$HOME/Programming/gows"
+export GOPATH="$HOME/Documents/programming/gows"
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
@@ -45,8 +45,7 @@ typeset -gU cdpath fpath mailpath path
 # Set the the list of directories that cd searches.
 cdpath=(
   $HOME
-  $HOME/Programming
-  $HOME/Build
+  $HOME/Documents/programming
   $cdpath
 )
 
@@ -75,8 +74,7 @@ path=(
 # Named Directories
 #
 
-hash -d programming="$HOME/Programming"
-hash -d build="$HOME/Build"
+hash -d programming="$HOME/Documents/programming"
 hash -d zsh="${ZDOTDIR:-$HOME}"
 hash -d zprezto="${ZDOTDIR:-$HOME}/.zprezto"
 
