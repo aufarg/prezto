@@ -30,6 +30,7 @@ alias glgp='git graph-log --patch'
 alias gm='git map'
 alias gp='git push'
 alias gck='git checkout'
+alias gsm='git submodule'
 
 # fasd alias
 unalias j
