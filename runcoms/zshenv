@@ -60,7 +60,7 @@ path=(
 # local path
   $HOME/.local/bin                               # User local script
   $HOME/.local/opt
-  $HOME/.gem/ruby/2.3.0/bin
+  $(ruby -e 'print Gem.user_dir')/bin            # RubyGems
   /usr/local/{bin,sbin}                          # System local script
 
 # system path
