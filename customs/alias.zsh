@@ -11,7 +11,6 @@ alias ls='ls --color=auto'
 alias grep='grep --color'
 
 alias vimdiff='nvim -d'
-alias aur='pacaur -a'
 alias pls='sudo $(fc -ln -1)'
 alias redwm='(cd ~/Builds/dwm; updpkgsums && makepkg -fi --noconfirm; killall dwm)'
 alias rezsh='exec zsh'
