@@ -12,6 +12,19 @@ if [[ -s "$rcdir/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+# additional path
+path=(
+  $HOME/bin                           # User local script
+  $HOME/.local/{bin,opt}              # User local script
+  $(ruby -e 'print Gem.user_dir')/bin # RubyGems
+  $(stack path --compiler-bin)        # Stack Haskell compiler path
+  $(stack path --local-bin)           # Stack packages' binaries
+  $GOPATH/bin                         # Go
+  /opt                                # opt
+  /usr/lib/jvm/default/include        # JVM include files
+  $path
+)
+
 
 # module options override
 setopt clobber

@@ -51,19 +51,7 @@ cdpath=(
 
 # Set the list of directories that Zsh searches for programs.
 path=(
-# local path
-  $HOME/bin                                      # User local script
-  $HOME/.local/bin                               # User local script
-  $HOME/.local/opt
-  $(ruby -e 'print Gem.user_dir')/bin            # RubyGems
-  $(stack path --compiler-bin)                   # Stack Haskell compiler path
-  $(stack path --local-bin)                      # Stack packages' binaries
-  /usr/local/{bin,sbin}                          # System local script
-
-# system path
-  $GOPATH/bin                                    # Go
-  /opt						 # opt
-  /usr/lib/jvm/default/include                   # JVM include files
+  /usr/local/{bin,sbin}
   $path
 )
 
