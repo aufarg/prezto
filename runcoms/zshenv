@@ -62,6 +62,8 @@ path=(
   $HOME/.local/bin                               # User local script
   $HOME/.local/opt
   $(ruby -e 'print Gem.user_dir')/bin            # RubyGems
+  $(stack path --compiler-bin)                   # Stack Haskell compiler path
+  $(stack path --local-bin)                      # Stack packages' binaries
   /usr/local/{bin,sbin}                          # System local script
 
 # system path
