@@ -18,18 +18,11 @@ setopt clobber
 export KEYTIMEOUT=1
 
 # load custom functions
-typeset -agU zshexit_functions
-{
-    customfuncs="${fpath[(r)*customs/funcs]}"
-    newer() { [[ ! -s "$customfuncs.zwc" || "$REPLY" -nt "$customfuncs.zwc" ]] }
-    if [[ -s "$customfuncs" && -n "$customfuncs"/*(#qN.+newer) ]]; then
-        zcompile "$customfuncs" "$customfuncs"/*
-    fi
-} &!
-
-customfuncs=("${fpath[(r)*customs/funcs]}"/*(.:t))
-autoload -Uz $customfuncs
-unset customfuncs
+fpath=(
+  ${ZDOTDIR:-$HOME}/funcs
+  $fpath
+)
+autoload -Uz "${fpath[1]}"/*(.:t)
 
 # source user configurations
 for file ("$rcdir/customs"/*.zsh(.))

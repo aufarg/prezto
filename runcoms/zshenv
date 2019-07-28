@@ -49,12 +49,6 @@ cdpath=(
   $cdpath
 )
 
-# Set the list of directories that autoload searches.
-fpath=(
-  ${ZDOTDIR:-$HOME}/customs/funcs
-  $fpath
-)
-
 # Set the list of directories that Zsh searches for programs.
 path=(
 # local path
