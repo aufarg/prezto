@@ -1,0 +1,11 @@
+#!/bin/zsh
+#
+# Function to load Ruby environment
+#
+
+case "$1" in
+    ruby)
+        eval "$(command rbenv init -)"
+        path+="$(ruby -e 'puts Gem.user_dir')/bin"
+        ;;
+esac
