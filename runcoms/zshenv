@@ -45,7 +45,6 @@ typeset -gU cdpath fpath mailpath path
 # Set the the list of directories that cd searches.
 cdpath=(
   $HOME
-  $HOME/Documents/programming
   $cdpath
 )
 
@@ -59,7 +58,6 @@ path=(
 # Named Directories
 #
 
-hash -d programming="$HOME/Documents/programming"
 hash -d zsh="${ZDOTDIR:-$HOME}"
 hash -d zprezto="${ZDOTDIR:-$HOME}/.zprezto"
 
