@@ -41,5 +41,3 @@ for file ("$rcdir/customs"/*.zsh(.))
     fi
 unset file
 unset sources
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
